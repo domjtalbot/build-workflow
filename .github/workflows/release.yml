@@ -235,6 +235,6 @@ jobs:
               name: Beta Release
               run: npm run version:beta
 
-            - if: ${{ contains(github.event.branches.*.name, 'main') }}
+            - if: ${{ contains(github.ref, 'main') }}
               name: Production Release
               run: npm run version
