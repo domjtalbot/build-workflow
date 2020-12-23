@@ -64,7 +64,7 @@ jobs:
             # Only used when testing workflow with `act`.
             # postinstall` doesn't trigger after `npm install` when
             # testing the workflow via `act`. This forces the task to run. 
-            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' && github.actor == 'nektos/act' }}
+            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' }}
               name: Node Postinstall
               run: npm run postinstall
 
@@ -112,7 +112,7 @@ jobs:
             # Only used when testing workflow with `act`.
             # postinstall` doesn't trigger after `npm install` when
             # testing the workflow via `act`. This forces the task to run. 
-            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' && github.actor == 'nektos/act' }}
+            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' }}
               name: Node Postinstall
               run: npm run postinstall
 
@@ -163,7 +163,7 @@ jobs:
             # Only used when testing workflow with `act`.
             # postinstall` doesn't trigger after `npm install` when
             # testing the workflow via `act`. This forces the task to run. 
-            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' && github.actor == 'nektos/act' }}
+            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' }}
               name: Node Postinstall
               run: npm run postinstall
 
@@ -215,7 +215,7 @@ jobs:
             # Only used when testing workflow with `act`.
             # postinstall` doesn't trigger after `npm install` when
             # testing the workflow via `act`. This forces the task to run. 
-            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' && github.actor == 'nektos/act' }}
+            - if: ${{ steps.node-cache.outputs.cache-hit != 'true' }}
               name: Node Postinstall
               run: npm run postinstall
 
