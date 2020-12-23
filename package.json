@@ -28,7 +28,8 @@
     "test:workflow:dry": "npm run test:workflow -- --dryrun",
     "test:workflow:ubuntu": "npm run test:workflow -- --platform ubuntu-latest=nektos/act-environments-ubuntu:18.04",
     "test:workflow": "act pull_request",
-    "test": "npx lerna run test --parallel"
+    "test": "npx lerna run test --parallel",
+    "other": ""
   },
   "version": "1.0.0",
   "dependencies": {
