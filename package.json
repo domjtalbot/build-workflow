@@ -13,9 +13,15 @@
     "url": "git+https://github.com/domjtalbot/build-workflow.git"
   },
   "scripts": {
+    "bootstrap": "npx lerna bootstrap --hoist",
+    "lint:eslint:fix": "npm run lint:eslint -- --fix",
+    "lint:eslint": "npx eslint .",
+    "lint:fix": "npm run lint:eslint:fix",
+    "lint": "npm run lint:eslint",
+    "postinstall": "npm run bootstrap",
     "test:version:alpha": "npm run version:alpha -- --no-git-tag-version --no-push",
     "test:version:beta": "npm run version:beta -- --no-git-tag-version --no-push",
-    "test:version": "npm run version -- --no-git-tag-version --no-push",
+    "test:version": "npm run version -- --no-git-tag-version --no-push --no-changelog",
     "test:workflow:dry": "npm run test:workflow -- --dryrun",
     "test:workflow:ubuntu": "npm run test:workflow -- --platform ubuntu-latest=nektos/act-environments-ubuntu:18.04",
     "test:workflow": "act pull_request",
@@ -26,6 +32,7 @@
   },
   "version": "1.0.0",
   "dependencies": {
+    "eslint": "^7.16.0",
     "lerna": "^3.22.1"
   }
 }

@@ -1,0 +1,47 @@
+{
+  "author": "Dom <domjt@me.com>",
+  "bugs": {
+    "url": "https://github.com/domjtalbot/build-workflow/issues"
+  },
+  "devDependencies": {
+    "@types/eslint": "^7",
+    "@types/eslint-config-prettier": "^6",
+    "@types/eslint-plugin-prettier": "^3",
+    "eslint": "^7.12.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.14.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  },
+  "description": "> TODO: description",
+  "homepage": "https://github.com/domjtalbot/build-workflow/tree/master/packages/eslint-config-example#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "eslint-config-example",
+  "peerDependencies": {
+    "@types/eslint": "^7",
+    "@types/eslint-config-prettier": "^6",
+    "@types/eslint-plugin-prettier": "^3",
+    "eslint": "^7.12.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.14.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domjtalbot/build-workflow.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "test": "echo \"Tests in eslint-config-example\" && exit 0"
+  },
+  "version": "1.0.0-alpha.2"
+}
