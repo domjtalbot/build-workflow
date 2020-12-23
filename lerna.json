@@ -1,6 +1,12 @@
 {
+  "command": {
+    "version": {
+      "message": "chore(release): publish %s"
+    }
+  },
   "packages": [
     "packages/*"
   ],
+  "npmClient": "npm",
   "version": "0.0.0"
 }
