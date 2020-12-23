@@ -33,7 +33,7 @@ jobs:
         uses: bobheadxi/deployments@v0.4.3
         with:
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: "https://google.ie"
+          env_url: "https://www.google.co.uk/search?q=development"
           status: ${{ job.status }}
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -57,7 +57,31 @@ jobs:
         uses: bobheadxi/deployments@v0.4.3
         with:
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: "https://google.co.uk"
+          env_url: "https://www.google.co.uk/search?q=staging"
+          status: ${{ job.status }}
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+    # Update staging deploy status on GitHub
+  deploy_status_production:
+    if: ${{ contains(github.event.context, 'circleci') && github.event.state == 'success' && contains(github.event.branches.*.name, 'main') }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        name: Start Deployment Status
+        uses: bobheadxi/deployments@v0.4.3      
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: Production
+          ref: ${{ github.head_ref }}
+
+      - if: always()
+        name: Update Deployment Status
+        uses: bobheadxi/deployments@v0.4.3
+        with:
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: "https://www.google.co.uk/search?q=production"
           status: ${{ job.status }}
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
