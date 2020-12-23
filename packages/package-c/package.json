@@ -1,0 +1,26 @@
+{
+  "author": "Dom <domjt@me.com>",
+  "bugs": {
+    "url": "https://github.com/domjtalbot/build-workflow/issues"
+  },
+  "description": "> TODO: description",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/domjtalbot/build-workflow/tree/master/packages/package-c#readme",
+  "license": "ISC",
+  "main": "lib/package-c.js",
+  "name": "package-c",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domjtalbot/build-workflow.git"
+  },
+  "scripts": {
+    "test": "echo \"Tests in package-c\" && exit 0"
+  },
+  "version": "1.0.0-alpha.1"
+}
