@@ -14,21 +14,21 @@
   },
   "scripts": {
     "bootstrap": "npx lerna bootstrap --hoist",
+    "lerna:version:alpha": "npm run lerna:version -- prerelease --preid alpha",
+    "lerna:version:beta": "npm run lerna:version -- prerelease --preid beta",
+    "lerna:version": "npx lerna version --conventional-commits --force-publish --yes",
     "lint:eslint:fix": "npm run lint:eslint -- --fix",
     "lint:eslint": "npx eslint .",
     "lint:fix": "npm run lint:eslint:fix",
     "lint": "npm run lint:eslint",
     "postinstall": "npm run bootstrap",
-    "test:version:alpha": "npm run version:alpha -- --no-git-tag-version --no-push",
-    "test:version:beta": "npm run version:beta -- --no-git-tag-version --no-push",
-    "test:version": "npm run version -- --no-git-tag-version --no-push --no-changelog",
+    "test:lerna:version:alpha": "npm run lerna:version:alpha -- --no-git-tag-version --no-push",
+    "test:lerna:version:beta": "npm run lerna:version:beta -- --no-git-tag-version --no-push",
+    "test:version": "npm run lerna:version -- --no-git-tag-version --no-push --no-changelog",
     "test:workflow:dry": "npm run test:workflow -- --dryrun",
     "test:workflow:ubuntu": "npm run test:workflow -- --platform ubuntu-latest=nektos/act-environments-ubuntu:18.04",
     "test:workflow": "act pull_request",
-    "test": "npx lerna run test --parallel",
-    "version:alpha": "npm run version -- prerelease --preid alpha",
-    "version:beta": "npm run version -- prerelease --preid beta",
-    "version": "npx lerna version --conventional-commits --yes"
+    "test": "npx lerna run test --parallel"
   },
   "version": "1.0.0",
   "dependencies": {
