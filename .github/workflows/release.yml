@@ -227,11 +227,11 @@ jobs:
               name: Node Postinstall
               run: npm run postinstall
 
-            - if: ${{ contains(github.event.branches.*.name, 'development') }}
+            - if: ${{ contains(github.ref, 'development') }}
               name: Alpha Release
               run: npm run version:alpha
             
-            - if: ${{ contains(github.event.branches.*.name, 'staging') }}
+            - if: ${{ contains(github.ref, 'staging') }}
               name: Beta Release
               run: npm run version:beta
 
