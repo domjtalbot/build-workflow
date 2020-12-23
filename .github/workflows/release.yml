@@ -236,12 +236,12 @@ jobs:
 
             - if: ${{ contains(github.ref, 'development') }}
               name: Alpha Release
-              run: npm run version:alpha
+              run: npm run lerna:version:alpha
             
             - if: ${{ contains(github.ref, 'staging') }}
               name: Beta Release
-              run: npm run version:beta
+              run: npm run lerna:version:beta
 
             - if: ${{ contains(github.ref, 'main') }}
               name: Production Release
-              run: npm run version
+              run: npm run lerna:version
