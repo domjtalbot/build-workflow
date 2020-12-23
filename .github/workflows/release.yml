@@ -13,6 +13,14 @@ on:
       - staging
 
 jobs:
+    debug-context:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Github Context
+          run: |
+            echo "${{ toJson(github) }}"
+
     # Setup the dependencies used by all jobs.
     # This job is reponsible for installing and caching npm
     # dependencies, which are then used by other jobs.
