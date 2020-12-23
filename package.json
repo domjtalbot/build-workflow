@@ -13,10 +13,16 @@
     "url": "git+https://github.com/domjtalbot/build-workflow.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test:workflow": "act pull_request",
+    "test:version:alpha": "npm run version:alpha -- --no-git-tag-version --no-push",
+    "test:version:beta": "npm run version:beta -- --no-git-tag-version --no-push",
+    "test:version": "npm run version -- --no-git-tag-version --no-push",
     "test:workflow:dry": "npm run test:workflow -- --dryrun",
-    "test:workflow:ubuntu": "npm run test:workflow -- --platform ubuntu-latest=nektos/act-environments-ubuntu:18.04"
+    "test:workflow:ubuntu": "npm run test:workflow -- --platform ubuntu-latest=nektos/act-environments-ubuntu:18.04",
+    "test:workflow": "act pull_request",
+    "test": "npx lerna run test --parallel",
+    "version:alpha": "npm run version -- prerelease --preid alpha",
+    "version:beta": "npm run version -- prerelease --preid beta",
+    "version": "npx lerna version --conventional-commits --yes"
   },
   "version": "1.0.0",
   "dependencies": {
