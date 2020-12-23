@@ -11,11 +11,29 @@ jobs:
       - run: node --version
 
 workflows:
-  node-tests:
+  alpha:
     jobs:
       - test:
           filters:
             branches:
               ignore: /.*/
             tags:
-              only: /^v*/
+              only: /^v.+(-alpha).*/
+
+  beta:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.+(-beta).*/
+  
+  prod:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v(?:[0-9]|[0-9]\d\d*).(?:[0-9]|[0-9]\d\d*).(?:[0-9]|[0-9]\d\d*)/
