@@ -5,6 +5,8 @@
 name: Release
 
 on:
+  pull_request:
+
   push:
     branches:
       - development
@@ -186,9 +188,9 @@ jobs:
 
     release:
         # Wait for jobs to complete before running this job.
-        needs: [lint, test]
+        needs: [setup, lint, test]
 
-        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') && github.action != 'nektos/act' }}
+        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') && github.action != 'nektos/act' && github.event_name == 'push' }}
         
         runs-on: ubuntu-latest
 
