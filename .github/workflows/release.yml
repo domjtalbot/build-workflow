@@ -5,15 +5,18 @@
 name: Release
 
 on:
+  pull_request:
+
   push:
     branches:
-      - develop
+      - development
       - main
       - master
       - staging
 
 jobs:
     debug-context:
+      if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') }}
       runs-on: ubuntu-latest
 
       steps:
@@ -27,6 +30,7 @@ jobs:
     # All jobs then use the same source of truth for `node_modules`,
     # minimizing risk of failure from setup steps.
     setup:
+        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') }}
         runs-on: ubuntu-latest
 
         strategy:
@@ -80,6 +84,8 @@ jobs:
         # Wait for other jobs to complete before running this job.
         needs: [setup]
 
+        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') }}
+
         runs-on: ubuntu-latest
 
         strategy:
@@ -130,6 +136,8 @@ jobs:
     test:
         # Wait for jobs to complete before running this job.
         needs: [setup]
+
+        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') }}
         
         runs-on: ubuntu-latest
 
@@ -179,9 +187,10 @@ jobs:
               run: npm run test
 
     release:
-        if: github.action != 'nektos/act'
         # Wait for jobs to complete before running this job.
-        needs: [lint, test]
+        needs: [setup, lint, test]
+
+        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') && github.action != 'nektos/act' && github.event_name == 'push' }}
         
         runs-on: ubuntu-latest
 
@@ -193,6 +202,11 @@ jobs:
             # Checkout codebase triggered by commit
             - name: Checkout
               uses: actions/checkout@v2
+
+            - name: Git Identity Setup
+              run: |
+                git config --global user.name 'github-actions[bot]'
+                git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
             # Get node cache for the specific `package-lock.json`.
             - id: node-cache
@@ -227,14 +241,20 @@ jobs:
               name: Node Postinstall
               run: npm run postinstall
 
-            - if: ${{ contains(github.event.branches.*.name, 'development') }}
+            - if: ${{ contains(github.ref, 'development') }}
               name: Alpha Release
-              run: npm run version:alpha
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npm run lerna:version:alpha -- --create-release github || (git reset --soft HEAD^ && npm run lerna:version:alpha -- --create-release github)
             
-            - if: ${{ contains(github.event.branches.*.name, 'staging') }}
+            - if: ${{ contains(github.ref, 'staging') }}
               name: Beta Release
-              run: npm run version:beta
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npm run lerna:version:beta -- --create-release github || (git reset --soft HEAD^ && npm run lerna:version:beta -- --create-release github)
 
-            - if: ${{ contains(github.event.branches.*.name, 'main') }}
+            - if: ${{ contains(github.ref, 'main') }}
               name: Production Release
-              run: npm run version
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npm run lerna:version -- --create-release github || (git reset --soft HEAD^ && npm run lerna:version -- --create-release github)

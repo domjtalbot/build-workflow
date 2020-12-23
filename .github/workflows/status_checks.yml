@@ -1,0 +1,63 @@
+name: Status Checks
+
+# Trigger the workflow on pull request activity
+on: [status]
+
+# CircleCI Status updates:
+#   1. Circle triggers three status updates on each build:
+#     - Queued
+#     - Pending
+#     - Success / Failure
+#   2. To check for specific circle status updates:
+#     - Queued: ${{ contains(github.event.context, 'circleci') && github.event.state == 'pending' && contains(github.event.description, 'are queued') }}
+#     - Pending: ${{ contains(github.event.context, 'circleci') && github.event.state == 'pending' && contains(github.event.description, 'is running') }}"
+#     - Success: ${{ contains(github.event.context, 'circleci') && github.event.state == 'success' }}
+
+jobs:
+  # Update development deploy status on GitHub
+  deploy_status_development:
+    if: ${{ contains(github.event.context, 'circleci') && github.event.state == 'success' && contains(github.event.branches.*.name, 'development') }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        name: Start Deployment Status
+        uses: bobheadxi/deployments@v0.4.3      
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: Development
+          ref: ${{ github.head_ref }}
+
+      - if: always()
+        name: Update Deployment Status
+        uses: bobheadxi/deployments@v0.4.3
+        with:
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: "https://google.ie"
+          status: ${{ job.status }}
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Update staging deploy status on GitHub
+  deploy_status_staging:
+    if: ${{ contains(github.event.context, 'circleci') && github.event.state == 'success' && contains(github.event.branches.*.name, 'staging') }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        name: Start Deployment Status
+        uses: bobheadxi/deployments@v0.4.3      
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: Staging
+          ref: ${{ github.head_ref }}
+
+      - if: always()
+        name: Update Deployment Status
+        uses: bobheadxi/deployments@v0.4.3
+        with:
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: "https://google.co.uk"
+          status: ${{ job.status }}
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
