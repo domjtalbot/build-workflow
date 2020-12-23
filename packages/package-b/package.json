@@ -22,7 +22,7 @@
   "scripts": {
     "test": "echo \"Tests in package-b\" && exit 0"
   },
-  "version": "1.0.0-alpha.19",
+  "version": "1.0.0-beta.5",
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

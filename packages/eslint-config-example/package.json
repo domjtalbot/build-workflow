@@ -43,5 +43,5 @@
     "lint:fix": "eslint --fix",
     "test": "echo \"Tests in eslint-config-example\" && exit 0"
   },
-  "version": "1.0.0-alpha.19"
+  "version": "1.0.0-beta.5"
 }

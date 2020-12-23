@@ -5,6 +5,8 @@
 name: Release
 
 on:
+  pull_request:
+
   push:
     branches:
       - development
@@ -186,9 +188,9 @@ jobs:
 
     release:
         # Wait for jobs to complete before running this job.
-        needs: [lint, test]
+        needs: [setup, lint, test]
 
-        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') && github.action != 'nektos/act' }}
+        if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') && github.action != 'nektos/act' && github.event_name == 'push' }}
         
         runs-on: ubuntu-latest
 
@@ -241,12 +243,12 @@ jobs:
 
             - if: ${{ contains(github.ref, 'development') }}
               name: Alpha Release
-              run: npm run lerna:version:alpha
+              run: npm run lerna:version:alpha || (git reset --soft HEAD^ && npm run lerna:version:alpha)
             
             - if: ${{ contains(github.ref, 'staging') }}
               name: Beta Release
-              run: npm run lerna:version:beta
+              run: npm run lerna:version:beta || (git reset --soft HEAD^ && npm run lerna:version:beta)
 
             - if: ${{ contains(github.ref, 'main') }}
               name: Production Release
-              run: npm run lerna:version
+              run: npm run lerna:version || (git reset --soft HEAD^ && npm run lerna:version)
