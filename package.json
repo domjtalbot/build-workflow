@@ -1,0 +1,25 @@
+{
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/domjtalbot/build-workflow/issues"
+  },
+  "description": "",
+  "homepage": "https://github.com/domjtalbot/build-workflow#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "build-workflow",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domjtalbot/build-workflow.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:workflow": "act pull_request",
+    "test:workflow:dry": "npm run test:workflow -- --dryrun",
+    "test:workflow:ubuntu": "npm run test:workflow -- --platform ubuntu-latest=nektos/act-environments-ubuntu:18.04"
+  },
+  "version": "1.0.0",
+  "dependencies": {
+    "lerna": "^3.22.1"
+  }
+}
